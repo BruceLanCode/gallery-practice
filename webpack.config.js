@@ -9,13 +9,16 @@ module.exports = {
         rules: [{
             test: /\.(jsx?$)/,
             exclude: /node_modules/,
-            loader: 'babel-loader'
+            loader: 'babel-loader',
+            options: {
+                presets: ['es2015','stage-0','react']
+            }
         },{
             test: /\.scss/,
-            loader: 'style-loader!css-loader!sass-loader'
+            loader: 'style-loader!css-loader!sass-loader!postcss-loader'
         },{
             test: /\.css$/,
-            loader: 'style-loader!css-loader'
+            loader: 'style-loader!css-loader!postcss-loader'
         },{
             test: /\.json$/,
             loader: 'json-loader'
