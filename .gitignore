@@ -1,6 +1,6 @@
 ### WebStorm ###
-.idea
+.idea/
 
 # App specific
 
-node_modules
+node_modules/
