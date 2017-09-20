@@ -15,5 +15,9 @@
   "bugs": {
     "url": "https://github.com/lantuhui/gallery-practice/issues"
   },
-  "homepage": "https://github.com/lantuhui/gallery-practice#readme"
+  "homepage": "https://github.com/lantuhui/gallery-practice#readme",
+  "dependencies": {
+    "normalize.css": "^7.0.0",
+    "react": "^15.6.1"
+  }
 }
