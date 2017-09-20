@@ -4,3 +4,4 @@
 # App specific
 
 node_modules/
+.idea/workspace.xml
