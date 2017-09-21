@@ -1,8 +1,9 @@
+var webpack = require('webpack')
+
 module.exports = {
-    entry: 'index.js',
+    entry: './src/index.js',
     output: {
-        filename: 'main.js',
-        publicPath: '/assets/'
+        filename: 'main.js'
     },
     devtool: 'sourcemap',
     module: {
@@ -11,7 +12,7 @@ module.exports = {
             exclude: /node_modules/,
             loader: 'babel-loader',
             options: {
-                presets: ['es2015','stage-0','react']
+                presets: ['react','es2015','stage-0']
             }
         },{
             test: /\.scss/,
@@ -31,7 +32,7 @@ module.exports = {
         }]
     },
     resolve: {
-        extensions: ['','js','jsx']
+        extensions: ['.js','.jsx']
     },
     plugins: [
         new webpack.HotModuleReplacementPlugin()
