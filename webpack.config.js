@@ -1,4 +1,5 @@
 var webpack = require('webpack')
+var HtmlWebpackPlugin = require('html-webpack-plugin')
 
 module.exports = {
     entry: [
@@ -9,7 +10,8 @@ module.exports = {
     },
     devtool: 'sourcemap',
     devServer: {
-      hot: true
+        hot: true,
+        inline: true
     },
     module: {
         rules: [{
@@ -40,6 +42,11 @@ module.exports = {
         extensions: ['.js','.jsx']
     },
     plugins: [
-        new webpack.HotModuleReplacementPlugin()
+        new webpack.HotModuleReplacementPlugin(),
+        new HtmlWebpackPlugin({
+            title: 'react-gallery-practice',
+            template: './src/template.html',
+            inject: 'body'
+        })
     ]
 }
