@@ -1,11 +1,16 @@
 var webpack = require('webpack')
 
 module.exports = {
-    entry: './src/index.js',
+    entry: [
+        './src/index.js'
+    ],
     output: {
         filename: 'main.js'
     },
     devtool: 'sourcemap',
+    devServer: {
+      hot: true
+    },
     module: {
         rules: [{
             test: /\.(jsx?$)/,
