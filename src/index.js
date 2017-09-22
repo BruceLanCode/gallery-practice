@@ -22,14 +22,27 @@ function get30DegRandom(){
 }
 
 class ImgFigure extends Component {
+    constructor(props){
+        super(props);
+        this.handleClick = this.handleClick.bind(this);
+    }
 
+    handleClick(ev){
+        ev.stopPropagation();
+        ev.preventDefault();
+        if(this.props.arrange.isCenter){
+            this.props.inverse()
+        }else{
+
+        }
+    }
 
     render(){
         var imgFigureClassName = 'img-figure'
         imgFigureClassName += this.props.arrange.isInverse ? ' is-inverse' : '';
 
         return (
-            <figure className={imgFigureClassName}>
+            <figure className={imgFigureClassName} onClick={this.handleClick}>
                 <img src={this.props.data.imageURL} alt={this.props.data.title}/>
                 <figcaption>
                     <h2 className="img-title">{this.props.data.title}</h2>
@@ -54,13 +67,15 @@ class Gallery extends Component {
                 },
                 rotate: 0,
                 isInverse: false,
-                isCenter: false
+                isCenter: true
             }
-        }
+        };
+        this.inverse = this.inverse.bind(this);
     }
 
     inverse(){
         let isInverseOld = this.state.arrange.isInverse;
+        // console.log(this.state);
         this.setState({
             arrange: {
                 pos: {
@@ -69,7 +84,7 @@ class Gallery extends Component {
                 },
                 rotate: 0,
                 isInverse: !isInverseOld,
-                isCenter: false
+                isCenter: true
             }
         });
     }
