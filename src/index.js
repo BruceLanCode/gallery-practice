@@ -32,12 +32,11 @@ class ImgFigure extends Component {
     handleClick(ev){
         ev.stopPropagation();
         ev.preventDefault();
-        this.props.inverse(this.props.data.ID)
-        // if(this.props.arrange.isCenter){
-        //     this.props.inverse(this.props.data.ID)
-        // }else{
-        //
-        // }
+        if(this.props.arrange.isCenter){
+            this.props.inverse(this.props.data.ID)
+        }else{
+            this.props.center(this.props.data.ID)
+        }
     }
 
     render(){
@@ -74,6 +73,40 @@ class ImgFigure extends Component {
     }
 }
 
+class ControllerUnit extends Component{
+    constructor(props){
+        super(props);
+        this.handleClick = this.handleClick.bind(this);
+    }
+
+    handleClick(ev){
+        ev.preventDefault();
+        ev.stopPropagation();
+
+        if(this.props.arrange.isCenter){
+            this.props.inverse(this.props.index);
+        }else{
+            this.props.center(this.props.index);
+        }
+    }
+
+    render(){
+        let controllerUnitClassName = "controller-unit";
+
+        if(this.props.arrange.isCenter){
+            controllerUnitClassName += " is-center";
+
+            if(this.props.arrange.isInverse){
+                controllerUnitClassName += " is-inverse";
+            }
+        }
+
+        return (
+            <span className={controllerUnitClassName} onClick={this.handleClick}></span>
+        )
+    }
+}
+
 class Gallery extends Component {
 
     constructor(props){
@@ -97,6 +130,7 @@ class Gallery extends Component {
             imgsArrangeArr: []
         };
         this.inverse = this.inverse.bind(this);
+        this.center = this.center.bind(this);
     }
 
     inverse(index){
@@ -105,6 +139,10 @@ class Gallery extends Component {
         this.setState({
             imgsArrangeArr: imgsArrangeArr
         });
+    }
+
+    center(index){
+        this.rearrange(index);
     }
 
     rearrange(centerIndex){
@@ -211,7 +249,8 @@ class Gallery extends Component {
     }
 
     render(){
-        var imgFigures = [];
+        var imgFigures = [],
+            controllerUnit = [];
         imageDatasArr.forEach(function(value,index){
             if(!this.state.imgsArrangeArr[index]){
                 this.state.imgsArrangeArr[index] = {
@@ -224,14 +263,20 @@ class Gallery extends Component {
                     isCenter: false
                 };
             }
-            imgFigures.push(<ImgFigure key={index} data={value} arrange={this.state.imgsArrangeArr[index]}
-                                       inverse={this.inverse} ref={(ele) => {this['imgFigure' + index] = ele}}></ImgFigure>)
+            imgFigures.push(<ImgFigure key={index} data={value} arrange={this.state.imgsArrangeArr[index]} center={this.center}
+                                       inverse={this.inverse} ref={(ele) => {this['imgFigure' + index] = ele}}></ImgFigure>);
+            controllerUnit.push(<ControllerUnit key={index} index={index} arrange={this.state.imgsArrangeArr[index]}
+                                                inverse={this.inverse} center={this.center}></ControllerUnit>)
         }.bind(this));
+
         return(
             <section className="stage" ref={(ele) => {this.stage = ele;}}>
                 <section className="img-sec">
                     {imgFigures}
                 </section>
+                <nav className="controller-nav">
+                    {controllerUnit}
+                </nav>
             </section>
         )
     }
